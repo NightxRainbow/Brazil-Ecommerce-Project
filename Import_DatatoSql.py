@@ -6,11 +6,11 @@ from sqlalchemy import create_engine
 
 # 1. Connect to your SQL Server database
 engine = create_engine(
-    'mssql+pyodbc://@localhost/EcommerceProject_BrazilDataset?driver=ODBC Driver 17 for SQL Server&Trusted_Connection=yes'
+    'mssql+pyodbc://@useyourservername/Databasename?driver=ODBC Driver 17 for SQL Server&Trusted_Connection=yes'
 )
 
 # 2. Point to the Kaggle CSV files
-folder_path = r'D:\geta jobs\Brazil Ecommerce Project\Brazil Ecommerce\*.csv'
+folder_path = r'useyourfolderdirectory*.csv'
 files = sorted(glob.glob(folder_path))
 
 # 3. Load all CSV files into SQL Server using APPEND instead of REPLACE
