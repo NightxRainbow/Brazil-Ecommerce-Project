@@ -15,6 +15,9 @@ SELECT
     customer_id,
     order_status,
     order_purchase_timestamp,
+    FORMAT(CAST(order_purchase_timestamp AS datetime), 'MMMM yyyy') AS month_year,
+    YEAR(CAST(order_purchase_timestamp AS datetime)) * 100 
+        + MONTH(CAST(order_purchase_timestamp AS datetime)) AS month_year_sort,
     order_estimated_delivery_date,
     -- optimized approval time: prefer approved timestamp, otherwise use purchase timestamp
     COALESCE(order_approved_at, order_purchase_timestamp) AS optimize_approval_times,
