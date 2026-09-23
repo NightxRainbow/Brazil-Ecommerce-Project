@@ -56,6 +56,28 @@ FROM dbo.olist_customers_dataset;
 GO
 
 -- =====================================================
+-- Create standardized products view
+-- Fill missing category values with 'outros' and numeric values with 0
+-- =====================================================
+IF OBJECT_ID('dbo.v__products_standarized', 'V') IS NOT NULL
+    DROP VIEW dbo.v__products_standarized;
+GO
+
+CREATE VIEW dbo.v__products_standarized AS
+SELECT
+    product_id,
+    COALESCE(NULLIF(LTRIM(RTRIM(product_category_name)), ''), 'outros') AS product_category_name,
+    COALESCE(product_name_lenght, 0) AS product_name_lenght,
+    COALESCE(product_description_lenght, 0) AS product_description_lenght,
+    COALESCE(product_photos_qty, 0) AS product_photos_qty,
+    product_weight_g,
+    product_length_cm,
+    product_height_cm,
+    product_width_cm
+FROM dbo.olist_products_dataset;
+GO
+
+-- =====================================================
 -- Duplicate detection queries (customers only)
 -- These return normalized values that appear more than once in customers
 -- =====================================================
